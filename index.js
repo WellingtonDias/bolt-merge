@@ -7,13 +7,13 @@ module.exports = function(TASK,OPTIONS)
 	if (!("input" in OPTIONS)) bolt.throwError(`merge: "input" not defined in task "${TASK}"`);
 	if (!("output" in OPTIONS)) bolt.throwError(`merge: "output" not defined in task "${TASK}"`);
 	if (bolt.isNotString(OPTIONS.output)) bolt.throwError(`merge: Bad formatted "output" "${OPTIONS.output}" in task "${TASK}"`);
-	if ((OPTIONS.output.charAt(OPTIONS.output.length - 1) === "/") || (helper.isPath(OPTIONS.output) && helper.isNotFile(OPTIONS.output))) bolt.throwError(`merge: Invalid "output" "${OPTIONS.output}" in task "${TASK}"`);
+	if ((OPTIONS.output.charAt(OPTIONS.output.length - 1) === "/") || (bolt.isPath(OPTIONS.output) && bolt.isNotFile(OPTIONS.output))) bolt.throwError(`merge: Invalid "output" "${OPTIONS.output}" in task "${TASK}"`);
 
 	const files = bolt.resolvePath(OPTIONS.input,{directory: false});
 
 	const directory = dirname(OPTIONS.output);
-	if (helper.isNotPath(directory)) fs.mkdirSync(directory,{recursive: true});
-	else if (helper.isNotDirectory(directory)) bolt.throwError(`merge: Invalid "output" "${OPTIONS.output}" in task "${TASK}"`);
+	if (bolt.isNotPath(directory)) fs.mkdirSync(directory,{recursive: true});
+	else if (bolt.isNotDirectory(directory)) bolt.throwError(`merge: Invalid "output" "${OPTIONS.output}" in task "${TASK}"`);
 
 	let content = "";
 	if (files.length > 0)
