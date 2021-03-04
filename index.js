@@ -18,7 +18,7 @@ module.exports = function(TASK,OPTIONS)
 	let content = "";
 	if (files.length > 0)
 	{
-		for (let i = 0; i < files.length - 1; ++i) content += fs.readFileSync(files[i],"utf8") + "\n";
+		for (var i = 0; i < files.length - 1; ++i) content += fs.readFileSync(files[i],"utf8") + "\n";
 		content += fs.readFileSync(files[i],"utf8");
 	};
 	fs.writeFileSync(OPTIONS.output,content);
